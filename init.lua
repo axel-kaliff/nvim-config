@@ -1,4 +1,9 @@
 --[[
+--
+-- TODO fix ALE to run  multiple linters, so you can use pylint, mypy and flake8 at the same time
+-- TODO fix suggestions and complete
+-- add harpoon
+-- add jump to definition
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -69,6 +74,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -88,7 +95,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -105,6 +112,9 @@ require('lazy').setup({
         build = (function()
           -- Build Step is needed for regex support in snippets
           -- This step is not supported in many windows environments
+          -- This step is not supported in many windows environments
+          -- Build Step is needed for regex support in snippets
+          -- This step is not supported in many windows environments
           -- Remove the below condition to re-enable on windows
           if vim.fn.has 'win32' == 1 then
             return
@@ -118,13 +128,16 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
 
+
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
+
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -237,6 +250,17 @@ require('lazy').setup({
     opts = {},
   },
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
+
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
@@ -246,7 +270,7 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+      -- Fuzzy Finder Algorithm which eequires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
       {
@@ -270,6 +294,8 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  { 'dense-analysis/ale' },
+  { 'averms/black-nvim' },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -577,6 +603,8 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -585,14 +613,19 @@ require('mason-lspconfig').setup()
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+--
+
+
 local servers = {
   -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
+  gopls = {},
+  golangci_lint_ls = {},
+  pyright = {},
+  pylsp = {},
+  jedi_language_server = {},
+  rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -609,9 +642,8 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
+
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
