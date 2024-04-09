@@ -603,6 +603,7 @@ require('which-key').register({
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
+require("copilot").setup()
 
 
 local servers = {
