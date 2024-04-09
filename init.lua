@@ -297,6 +297,8 @@ require('lazy').setup({
   { 'dense-analysis/ale' },
   { 'averms/black-nvim' },
   { 'zbirenbaum/copilot.lua' },
+  { 'voldikss/vim-floaterm' },
+  vim.keymap.set('n', '<leader>gl', '<cmd>FloatermNew lazygit<cr>', { desc = '[G]it [L]azy' })
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
