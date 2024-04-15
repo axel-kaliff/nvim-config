@@ -606,6 +606,7 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 require("copilot").setup()
+vim.keymap.set('n', '<Shift>l', require('copilot.suggestion').accept_line, { desc = 'Accept suggestion line' })
 
 
 local servers = {
@@ -652,6 +653,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+require('kickstart.plugins.autoformat').config()
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
