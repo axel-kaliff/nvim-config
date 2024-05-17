@@ -298,7 +298,8 @@ require('lazy').setup({
   { 'averms/black-nvim' },
   { 'zbirenbaum/copilot.lua' },
   { 'voldikss/vim-floaterm' },
-  vim.keymap.set('n', '<leader>gl', '<cmd>FloatermNew lazygit<cr>', { desc = '[G]it [L]azy' })
+  vim.keymap.set('n', '<leader>gl', '<cmd>FloatermNew lazygit<cr>', { desc = '[G]it [L]azy' }),
+  vim.keymap.set('n', '<leader>ft', '<cmd>Neotree toggle<cr>', { desc = '[F]ile tree [T]oggle' }),
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -606,7 +607,7 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 require("copilot").setup()
-vim.keymap.set('n', '<Shift>l', require('copilot.suggestion').accept_line, { desc = 'Accept suggestion line' })
+vim.keymap.set('n', '<Shift>u', require('copilot.suggestion').accept_line, { desc = 'Accept suggestion line' })
 
 
 local servers = {
