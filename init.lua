@@ -75,7 +75,6 @@ require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
 
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -136,6 +135,7 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
+
 
 
   {
@@ -606,9 +606,6 @@ require('which-key').register({
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
-require("copilot").setup()
-vim.keymap.set('n', '<Shift>u', require('copilot.suggestion').accept_line, { desc = 'Accept suggestion line' })
-
 
 local servers = {
   -- clangd = {},
@@ -654,7 +651,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require('kickstart.plugins.autoformat').config()
+-- require('kickstart.plugins.autoformat').config()
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
