@@ -295,8 +295,6 @@ require('lazy').setup({
   },
 
   { 'dense-analysis/ale' },
-  { 'averms/black-nvim' },
-  { 'zbirenbaum/copilot.lua' },
   { 'voldikss/vim-floaterm' },
   vim.keymap.set('n', '<leader>gl', '<cmd>FloatermNew lazygit<cr>', { desc = '[G]it [L]azy' }),
   vim.keymap.set('n', '<leader>ft', '<cmd>Neotree toggle<cr>', { desc = '[F]ile tree [T]oggle' }),
