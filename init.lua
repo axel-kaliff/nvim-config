@@ -1,12 +1,7 @@
 -- TODO:
--- - Fix ALE to run multiple linters (pylint, mypy, flake8)
 -- - Fix suggestions and completion
 -- - Add harpoon
--- - Add jump to definition
 
--- Kickstart.nvim Configuration
--- Kickstart.nvim is a template for your own configuration.
--- Read and understand every line of code to modify it to suit your needs.
 -- Explore Neovim and Lua through the following guides:
 -- - https://learnxinyminutes.com/docs/lua/
 -- - https://neovim.io/doc/user/lua-guide.html
@@ -64,6 +59,20 @@ require('lazy').setup({
       'hrsh7th/cmp-path',
       'rafamadriz/friendly-snippets',
     },
+  },
+
+  { "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.diagnostics.ruff,
+          null_ls.builtins.formatting.black,
+        }
+      })
+    end
   },
 
   -- Other useful plugins
@@ -258,7 +267,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- Configure Treesitter
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c','python', 'cpp', 'go', 'lua', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
     auto_install = false,
     sync_install = false,
     ignore_install = {},
@@ -371,7 +380,6 @@ local servers = {
   gopls = {},
   golangci_lint_ls = {},
   pyright = {},
-  pylsp = {},
   jedi_language_server = {},
   rust_analyzer = {},
   lua_ls = {
@@ -438,6 +446,10 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+
+
+
 
 -- Modeline
 -- vim: ts=2 sts=2 sw=2 et
